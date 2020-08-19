@@ -36,17 +36,28 @@ namespace Ovikello
 
         private async Task doorbellAsync()
         {
+            int counter = 0;
             GpioController controller = new GpioController(PinNumberingScheme.Board);
             controller.OpenPin(10, PinMode.InputPullDown);
+            var pin = controller.Read(10);
             while (true)
             {
-                var pin = controller.Read(10);
                 if (pin == PinValue.High)
                 {
-                    await Console.Out.WriteLineAsync("Ovikello soi! " + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture));
-                    await _client.GetGuild(742635035865382932).GetTextChannel(742635035865382936).SendMessageAsync("@everyone Ovikello soi!");
-                    "cvlc --play-and-exit /sound.mp3".Bash();
-                    await Task.Delay(3000);
+                    counter++;
+                    await Console.Out.WriteLineAsync("Signaali: " + counter.ToString());
+                    if (counter > 3)
+                    {
+                        await Console.Out.WriteLineAsync("Ovikello soi! " + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+                        await _client.GetGuild(742635035865382932).GetTextChannel(742635035865382936).SendMessageAsync("@everyone Ovikello soi!");
+                        "cvlc --play-and-exit /sound.mp3".Bash();
+                        counter = 0;
+                        await Task.Delay(3000);
+                    }
+                }
+                else
+                {
+                    counter = 0;
                 }
             }
         }
