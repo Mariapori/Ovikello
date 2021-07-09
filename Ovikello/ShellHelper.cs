@@ -5,6 +5,7 @@ namespace Ovikello
 {
     public static class ShellHelper
     {
+        //Mahdollistaa linux komennot helposti
         public static string Bash(this string cmd)
         {
             var escapedArgs = cmd.Replace("\"", "\\\"");

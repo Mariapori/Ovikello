@@ -30,7 +30,6 @@ namespace Ovikello
             await _client.StartAsync();
             await doorbellAsync();
 
-            // Block this task until the program is closed.
             await Task.Delay(-1);
         }
 
