@@ -24,7 +24,7 @@ namespace Ovikello
             _client.Log += Log;
             _client.MessageReceived += _client_MessageReceived;
 
-            var token = "NzQyNjc2OTg3NTg3NTkyMjUy.XzJl2A._ycOarcx7nyFCeQSuOWC6_uOg4c";
+            var token = "secret";
 
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
